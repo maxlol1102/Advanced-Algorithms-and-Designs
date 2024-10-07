@@ -1,0 +1,177 @@
+
+
+\documentclass[12pt]{article}
+
+%\pagestyle{empty} 
+\usepackage{amsmath}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{epsfig}
+
+\newcommand{\vs}{\vspace{2mm}}
+\newcommand{\ls}{\vspace{5mm}} 
+
+\newcommand{\ms}{\vspace{3mm}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\sm}{\small}
+\newcommand{\hs}{\hspace{10mm}}
+\newcommand{\ha}{\hspace{1mm}}
+\newcommand{\bo}{\rule{2mm}{3mm}}
+\textheight=680pt
+\textwidth=460pt
+\hoffset=-50pt
+\voffset=-50pt
+%\topmargin=-0.5in
+%\textheight=10in
+%\oddsidemargin=0.125in
+%\evensidemargin=0.125in
+%\textwidth=7.5in
+\begin{document}
+\bc\ { \bf  Homework  3 (50 points)}  Due: September 27, 2024 11:59 pm\\
+
+ { \bf COMPSCI 733: Advanced Algorithms and Designs } \ec\ 
+\ls\
+
+\noindent{\bf Documentation:} (5 points)
+Type your solutions using Latex \\
+(www.overleaf.com or https://www.latex-project.org/ ). Submit your solutions (pdf is enough)  to Canvas. 
+
+
+
+
+\vs\
+
+\noindent{\bf Problem 1: (15 points)}
+
+\begin{itemize}
+
+\item[(a)]
+Arrange the following functions into increasing order of time complexity; that is, $f(n)$ should come before $g(n)$ in your list if $f(n)$ is $O(g(n))$. (i.e, $n$ comes before $n^2$ since $n$ is $O(n^2)$.)
+\vs\
+
+\[100000 , \ha\ \log(n) ,   \ha\  2^n  , \ha\    n \log(n), \ha\   n^{0.9999999} \log(n) , \ha\  n+ \log(n),   \ha\   n^{50} - 100n^2,  \] 
+\[ \ha\    n^n  , \ha\  n! , \ha\ 1.0000001^n, \ha\ (\log(n))^n\]
+
+\item[(b)] Use the master theorem (the version given on the slides, not the CLRS textbook version)to give a tight bound (i.e., ($\Theta())$)  for the following recurrence relations. Write your steps using the format.
+ 
+ $T(n)= aT(n/b)+f(n)$, $a \geq 1, b >1$.
+
+\begin{itemize}
+    \item Identify $a, b, f(n)$.
+    \item Calculate $n^{\log_ba}$
+    \item Compare $n^{\log_ba}$ with $f(n)$ and identify a case from the theorem.
+    \item For Case 3 only: Check the regularity condition. i.e., Find $c<1$ such that $af(n/b) \leq c f(n).$
+    \item Conclusion:  The $\Theta$ bound or "The theorem cannot be applied."
+    
+\end{itemize}
+
+\begin{itemize}
+    \item[(a)] $T(n) = 2 T(\frac{n}{4}) +1 $
+    \item[(b)] $T(n) = 2 T(\frac{n}{4}) + \sqrt{n} $
+     \item[(c)] $T(n) = 2 T(\frac{n}{2}) +n^2 $
+      \item[(d)] $T(n) = 4T(\frac{n}{2}) + n^{2} \log n $
+\end{itemize}    
+
+
+\end{itemize}
+
+
+\vs\
+
+
+
+
+
+
+\noindent{\bf Problem 2: (15 points) }
+An element $x$ of an array $A[1 : n]$ is called a majority element if more than half of $A$ are equal to $x$. Your task is to find whether a given array has a majority element and if so, what it is. We do not assume the elements of $A$ are integers, or otherwise ordered; the only query you can access the elements of $A$ is of the form whether $A[i] = A[j]$ in constant time, for any $i$ and $j$.  
+
+\begin{itemize}
+\item[(a)]	Suppose that $A$ has a majority element, $x$. Let L and $R$ partition $A$; i.e., $L$ and $R$ are disjoint subsets of $A$ such that their union is $A.$ Use proof by contradiction to prove that if $x$ is a majority element in $A,$ then it must also be a majority element in $L$ or in $R.$
+
+\begin{proof} (By contradiction)
+
+Suppose $x$ is a majority element in $A$ and $x$ is not a majority element in both $L$ and $R$. 
+
+***Complete the proof by finding a contradiction. ***
+    
+\end{proof}
+
+
+\item[(b)]	Solve this problem with a Divide-and-Conquer algorithm that runs in time $O(n \log n). $ Write a pseudo code of your algorithm.   (Hint: By dividing $A$ into two halves $A_1$ and $A_2,$ and using Part (a). You can use English statements to explain the steps of your pseudo code. Direct copying of online versions is not accepted.
+
+
+\begin{algorithm}
+\caption{Majority(A)}
+\begin{algorithmic}[1]
+\State{Your pseudocode goes here.}
+\end{algorithmic}
+\end{algorithm}
+
+\item[(c)]write a recurrence relation for the execution time, $T(n),$ and apply Master's theorem to prove $\Theta$ time complexity of $T(n)$.
+
+
+\end{itemize}
+
+
+
+
+\noindent{\bf Problem 3: (15 points)}
+
+The Towers of Hanoi puzzle has 3 towers labeled 0, 1, and 2. There are n disks of sizes 1 to $n,$ initially placed on tower 0 from top to bottom in the order of their sizes. The goal is to move all $n$ disks from tower 0 to tower 2 under certain rules. One can only move one disk at a time, and move the top disk on a tower to be placed on the top of another tower, and cannot place a larger disk on top of a smaller disk. The question is, what is the smallest number of moves needed. Our problem is a variant of the Towers of Hanoi puzzle: The three towers are still labeled 0, 1, and 2. There is one additional constraint: You are only allowed to move disks from a tower labeled $i$ to the next one labeled $(i+1)$ mod 3. You can imagine the towers as being arranged in a circular fashion. So, for example, in order to move a disk from tower 0 to tower 2, you would have to first move it to tower 1 (if both $0 \rightarrow 1$ and $1 \rightarrow 2$ are legal moves at this point), and this sequence would cost two moves instead of just one.
+
+
+\begin{itemize}
+ \item[(a)] Explain that starting at any legal configuration, there is at least one legal move. (Any legal configuration means several legal moves may have already been made. Any tower may be empty or non-empty.)
+
+ \item[(b)]  Inductively prove that for any $n \geq 1,$ this variant of the Towers of Hanoi puzzle has a solution consisting of finitely many legal moves.
+\vs\
+
+\noindent{$P(n):$} This variant of the Towers of Hanoi puzzle with $n$ disks has a solution consisting of finitely many legal moves. 
+\ls\
+
+\noindent{\em Prove:} $P(n)$ is true for all $n \geq 1$.
+\vs\
+
+\begin{proof} (By induction on $n$)
+
+    \begin{itemize}
+    \item Prove the base case.
+    \item Write the inductive hypothesis ($n=k$).
+    \item Prove the inductive step. (Hint: Start with $n= k+1$ disks.)
+    \item Conclusion. (Given)
+    Therefore, by the principle of mathematical induction, $P(n)$ is true for all $n \geq 1.$
+    \end{itemize}
+    
+\end{proof}
+
+ \item[(c)] Follow the given steps to show a recurrence of $T(n),$ the  number of moves needed for the variant of the Towers of Hanoi puzzle with $n$ disks, satisfies:
+
+$T(0)= 0, T(1)=2, T(n) = 2T(n-1)+ 2T(n-2)+3.$ 
+
+\begin{itemize}
+    \item[(a)]Introduce a quantity $S(n)$ for the number of moves needed to move n pegs from tower 0 to tower 1 (or $i$ to $(i+1)$ mod 3). 
+First show that
+ $ S(n) = 2 T(n-1) + 1$.  Explain your moves.
+ 
+ \item[(b)] Derive $T(n)$ using $T(n-1)$ and $S(n-1)$.)
+
+\item[(c)] Use Part (a) to derive $T(n)$ using $T(n-1)$ and $T(n-2)$.
+\end{itemize}
+
+\end{itemize}
+
+
+
+
+\end{document}
+
+
+
+
